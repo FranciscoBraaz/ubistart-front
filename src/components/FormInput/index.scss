@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/variables.scss";
 
 .form-input-container {
   display: flex;
@@ -10,27 +10,27 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    color: $secondary-default;
+    color: variables.$secondary-default;
   }
 }
 
 .form-input {
   height: 44px;
-  border: 1px solid $secondary-xsm;
+  border: 1px solid variables.$secondary-xsm;
   border-radius: 4px;
   padding: 10px 14px;
   font-size: 16px;
   font-weight: 400;
   width: 100%;
-  color: $secondary-default;
+  color: variables.$secondary-default;
   margin: 8px 0px;
 
   &::placeholder {
-    color: $black-500;
+    color: variables.$black-500;
   }
 
   &:focus {
-    border: 2px solid $main-default;
+    border: 2px solid variables.$main-default;
     padding: 10px 13px;
   }
 
@@ -41,12 +41,12 @@
   }
 
   &--error {
-    border: 2px solid $error-default;
+    border: 2px solid variables.$error-default;
   }
 }
 
 .form-input__error-message {
-  color: $error-lg;
+  color: variables.$error-lg;
   font-size: 10px;
   line-height: 150%;
   letter-spacing: 0.4px;

@@ -1,0 +1,53 @@
+@use "../../styles/variables.scss";
+
+.created-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 32px;
+  margin-top: 32px;
+
+  & > h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: variables.$text-primary;
+  }
+}
+
+.created-items__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & > li {
+    padding-bottom: 8px;
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid variables.$black-200;
+    }
+
+    & > p > strong {
+      font-weight: 600;
+    }
+  }
+}
+
+.created-items__load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  color: variables.$main-default;
+  border: 1px solid variables.$main-default;
+  transition: all 0.4s ease;
+
+  &:hover {
+    background-color: variables.$main-default;
+    color: variables.$white;
+  }
+}

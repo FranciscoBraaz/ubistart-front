@@ -7,6 +7,7 @@ import useSubmitForm from './hooks/useSubmitForm'
 import FormInput from '../../components/FormInput'
 import FormHeader from '../../components/FormHeader'
 import FormButton from '../../components/FormButton'
+import CreatedItems from '../../components/CreatedItems'
 
 // Styles
 import './index.scss'
@@ -70,6 +71,7 @@ function Home() {
           {isSubmitting ? 'Enviando...' : 'Enviar'}
         </FormButton>
       </form>
+      <CreatedItems />
     </main>
   )
 }

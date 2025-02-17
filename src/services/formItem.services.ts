@@ -21,3 +21,14 @@ export async function createItem({
     throw new Error(String(error))
   }
 }
+
+export async function getItems(page: number = 1) {
+  try {
+    const { data } = await api.get(`/get-items/${page}`)
+
+    return data
+  } catch (error) {
+    console.warn('Erro ao buscar items:', error)
+    throw new Error(String(error))
+  }
+}

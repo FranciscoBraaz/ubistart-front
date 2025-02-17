@@ -1,5 +1,5 @@
-@import "reset.css";
-@import "variables.scss";
+@use "variables";
+@use "reset";
 
 * {
   box-sizing: border-box;
@@ -10,10 +10,10 @@ html {
 }
 
 body {
-  background-color: $white;
-  font-family: $font-primary;
+  background-color: variables.$white;
+  font-family: variables.$font-primary;
   font-weight: 400;
-  color: $text-primary;
+  color: variables.$text-primary;
   line-height: 1.35;
   overflow-y: auto;
   overflow-x: hidden;
@@ -26,7 +26,7 @@ button,
 input,
 textarea,
 select {
-  font-family: $font-primary;
+  font-family: variables.$font-primary;
 }
 
 *:focus {
@@ -89,7 +89,7 @@ h4 {
   font-size: 14px;
   text-align: center;
   font-weight: 400;
-  color: $error-default;
+  color: variables.$error-default;
   animation: fadeIn 0.2s ease;
 }
 
@@ -97,11 +97,11 @@ h4 {
   font-size: 14px;
   text-align: center;
   font-weight: 400;
-  color: $main-default;
+  color: variables.$main-default;
   animation: fadeIn 0.2s ease;
 }
 
-@media (min-width: $screen-xl) {
+@media (min-width: variables.$screen-xl) {
   h1 {
     font-size: 36px;
   }
@@ -115,7 +115,7 @@ h4 {
   }
 }
 
-@media (max-width: $screen-md) {
+@media (max-width: variables.$screen-md) {
   button {
     font-size: 14px !important;
   }
@@ -144,16 +144,16 @@ h4 {
 }
 
 .Toastify__toast--success {
-  background-color: $main-default !important;
-  color: $white;
+  background-color: variables.$main-default !important;
+  color: variables.$white;
 }
 
 .Toastify__toast--error {
   background-color: #e5484d !important;
-  color: $white;
+  color: variables.$white;
 }
 
 .Toastify__toast--info {
   background-color: #0090ff !important;
-  color: $white;
+  color: variables.$white;
 }

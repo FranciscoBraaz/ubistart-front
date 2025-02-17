@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/variables.scss";
 
 .form-button {
   height: 40px;
@@ -10,20 +10,20 @@
   justify-content: center;
   align-items: center;
   gap: 4px;
-  color: $main-default;
+  color: variables.$main-default;
   background-color: transparent;
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
 
   &--contained {
-    background-color: $main-default;
-    color: $white;
+    background-color: variables.$main-default;
+    color: variables.$white;
   }
 
   &--outlined {
-    background-color: $white;
-    color: $main-default;
-    border: 1px solid $main-default;
+    background-color: variables.$white;
+    color: variables.$main-default;
+    border: 1px solid variables.$main-default;
   }
 
   &--disabled {
@@ -34,7 +34,7 @@
 
   &:hover {
     filter: brightness(0.9);
-    border: 1px solid $main-default;
+    border: 1px solid variables.$main-default;
   }
 
   & > span {
