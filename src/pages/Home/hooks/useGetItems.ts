@@ -53,7 +53,8 @@ function useGetItems() {
   }, [data])
 
   function onLoadMore() {
-    setPage(page + 1)
+    const currentPage = page || 1
+    setPage(currentPage + 1)
     isLoadMore.current = true
   }
 
