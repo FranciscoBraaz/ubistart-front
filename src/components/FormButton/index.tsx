@@ -5,7 +5,7 @@ import { CSSProperties } from 'react'
 
 interface ButtonProps {
   children: React.ReactNode
-  onClick: VoidFunction
+  onClick?: VoidFunction
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   type?: 'button' | 'submit' | 'reset'

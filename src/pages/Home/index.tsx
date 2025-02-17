@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-// Custom hooks
+// Custom ooks
 import useSubmitForm from './hooks/useSubmitForm'
 
 // Components
@@ -15,17 +15,16 @@ function Home() {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors, isValid, isSubmitting },
   } = useForm({
     mode: 'onBlur',
   })
-  const { createItem } = useSubmitForm()
+  const { submitCreateItem } = useSubmitForm()
 
   return (
     <main className='home'>
       <FormHeader title='Formulário' description='Cadastrar' />
-      <form onSubmit={handleSubmit(createItem)}>
+      <form onSubmit={handleSubmit(submitCreateItem)}>
         <FormInput
           formField={{
             type: 'email',
@@ -66,7 +65,6 @@ function Home() {
         <FormButton
           type='submit'
           styleType='contained'
-          onClick={() => console.log(getValues())}
           disabled={!isValid}
           isLoading={isSubmitting}>
           {isSubmitting ? 'Enviando...' : 'Enviar'}
