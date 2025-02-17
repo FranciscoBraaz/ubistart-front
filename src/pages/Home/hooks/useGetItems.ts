@@ -10,13 +10,13 @@ function useGetItems() {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [isInitialRender, setIsInitialRender] = useState(true)
 
-  const isInitialRender = useRef(true)
   const isLoadMore = useRef(false)
 
   useEffect(() => {
-    if (isInitialRender.current) {
-      isInitialRender.current = false
+    if (isInitialRender) {
+      setIsInitialRender(false)
       return
     }
 
@@ -42,7 +42,7 @@ function useGetItems() {
     }
 
     fetchItems()
-  }, [page])
+  }, [page, isInitialRender])
 
   useEffect(() => {
     if (isLoadMore.current && document.body) {
