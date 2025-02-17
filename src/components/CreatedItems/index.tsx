@@ -1,20 +1,43 @@
-// Custom hooks
-import useGetItems from './hooks/useGetItems'
+import { MoonLoader } from 'react-spinners'
 
 // Styles
 import './index.scss'
 
-function CreatedItems() {
-  const { loadMore, data, loading, error } = useGetItems()
+interface Item {
+  id: string
+  name: string
+  email: string
+  cep: number
+}
 
+interface CreatedItemsProps {
+  onFillForm: (item: Item) => void
+  loadMore: VoidFunction
+  data: {
+    formItems: Item[]
+    totalPages: number
+  }
+  currentPage: number
+  loading: boolean
+  error: string
+}
+
+function CreatedItems({
+  data,
+  loading,
+  error,
+  currentPage,
+  onFillForm,
+  loadMore,
+}: CreatedItemsProps) {
   return (
     <div className='created-items'>
       <h1>Lista de itens</h1>
       {loading && <p>Carregando...</p>}
       {error && <p>{error}</p>}
       <ul className='created-items__list'>
-        {data?.formItems?.map((item: any) => (
-          <li key={item.id}>
+        {data?.formItems?.map((item: Item) => (
+          <li key={item.id} onClick={() => onFillForm(item)} role='button'>
             <p>
               <strong>Nome:</strong> {item.name}
             </p>
@@ -27,9 +50,11 @@ function CreatedItems() {
           </li>
         ))}
       </ul>
-      <button className='created-items__load-more' onClick={loadMore}>
-        Carregar mais
-      </button>
+      {currentPage < data.totalPages && (
+        <button className='created-items__load-more' onClick={loadMore}>
+          {loading ? <MoonLoader color='#fff' size={20} /> : <span>Carregar mais</span>}
+        </button>
+      )}
     </div>
   )
 }

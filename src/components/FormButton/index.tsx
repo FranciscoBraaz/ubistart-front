@@ -33,7 +33,7 @@ function FormButton({
 
     if (styleType === 'contained') className += ' form-button--contained'
     if (styleType === 'outlined') className += ' form-button--outlined'
-    if (disabled) className += ' form-button--disabled'
+    if (disabled || isLoading) className += ' form-button--disabled'
 
     return className
   }
@@ -46,7 +46,7 @@ function FormButton({
       className={returnClassName()}
       style={{ ...style }}>
       {leftIcon && <span className='form-button__left-icon'>{leftIcon}</span>}
-      {isLoading ? <MoonLoader color='#fff' /> : children}
+      {isLoading ? <MoonLoader color='#fff' size={20} /> : children}
       {rightIcon && <span className='form-button__right-icon'>{rightIcon}</span>}
     </button>
   )

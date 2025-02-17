@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form'
 
-// Custom ooks
+// Custom hooks
 import useSubmitForm from './hooks/useSubmitForm'
+import useGetItems from './hooks/useGetItems'
 
 // Components
 import FormInput from '../../components/FormInput'
@@ -16,11 +17,13 @@ function Home() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid, isSubmitting },
   } = useForm({
     mode: 'onBlur',
   })
-  const { submitCreateItem } = useSubmitForm()
+  const { refetchInitialPage, onLoadMore, data, loading, error, currentPage } = useGetItems()
+  const { submitCreateItem, onFillForm } = useSubmitForm({ reset, refetchInitialPage })
 
   return (
     <main className='home'>
@@ -68,10 +71,17 @@ function Home() {
           styleType='contained'
           disabled={!isValid}
           isLoading={isSubmitting}>
-          {isSubmitting ? 'Enviando...' : 'Enviar'}
+          Enviar
         </FormButton>
       </form>
-      <CreatedItems />
+      <CreatedItems
+        data={data}
+        loading={loading}
+        error={error}
+        currentPage={currentPage}
+        onFillForm={item => onFillForm(item)}
+        loadMore={onLoadMore}
+      />
     </main>
   )
 }

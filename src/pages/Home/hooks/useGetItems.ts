@@ -3,9 +3,9 @@ import { getItems } from '../../../services/formItem.services'
 
 function useGetItems() {
   const [page, setPage] = useState(1)
-  const [data, setData] = useState({
+  const [data, setData] = useState<{ formItems: any[]; totalPages: number }>({
     formItems: [],
-    totalItems: 0,
+    totalPages: 0,
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -21,8 +21,11 @@ function useGetItems() {
     async function fetchItems() {
       setLoading(true)
       try {
-        const data = await getItems(page)
-        setData(data)
+        const responseData = await getItems(page)
+        if (page > 1) {
+          responseData.formItems = [...data.formItems, ...responseData.formItems]
+        }
+        setData(responseData)
       } catch (error) {
         console.error(error)
         if (error instanceof Error) {
@@ -38,11 +41,15 @@ function useGetItems() {
     fetchItems()
   }, [page])
 
-  function loadMore() {
+  function onLoadMore() {
     setPage(page + 1)
   }
 
-  return { loadMore, data, loading, error }
+  function refetchInitialPage() {
+    setPage(1)
+  }
+
+  return { data, loading, error, currentPage: page, onLoadMore, refetchInitialPage }
 }
 
 export default useGetItems
