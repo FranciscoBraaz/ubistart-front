@@ -43,6 +43,9 @@
       border: 1px solid variables.$main-default;
     }
 
+    & > p {
+      word-break: break-all;
+    }
 
     & > p > strong {
       font-weight: 600;
@@ -65,5 +68,17 @@
   &:hover {
     background-color: variables.$main-default;
     color: variables.$white;
+  }
+}
+
+.created-items__loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+@media screen and (max-width: variables.$screen-sm) {
+  .created-items {
+    padding: 0 16px;
   }
 }

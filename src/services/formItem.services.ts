@@ -1,4 +1,11 @@
+import axios from 'axios'
 import { api } from './api'
+
+interface CustomError extends Error {
+  data: {
+    message: string
+  }
+}
 
 export async function createItem({
   name,
@@ -7,7 +14,7 @@ export async function createItem({
 }: {
   name: string
   email: string
-  cep: number
+  cep: string
 }) {
   try {
     const formItemCreated = await api.post('/create-item', {
@@ -16,9 +23,35 @@ export async function createItem({
       cep,
     })
     return formItemCreated
+  } catch (error: CustomError | unknown) {
+    if (axios.isAxiosError(error)) {
+      throw Error(error.response?.data.message)
+    } else {
+      throw error
+    }
+  }
+}
+
+export async function editItem({
+  name,
+  email,
+  cep,
+  id,
+}: {
+  name: string
+  email: string
+  cep: string
+  id: string
+}) {
+  try {
+    const formItemEdited = await api.put('/edit-item', { id, name, email, cep })
+    return formItemEdited
   } catch (error) {
-    console.warn('DB - Erro ao criar item:', error)
-    throw new Error(String(error))
+    if (axios.isAxiosError(error)) {
+      throw Error(error.response?.data.message)
+    } else {
+      throw error
+    }
   }
 }
 
@@ -28,7 +61,10 @@ export async function getItems(page: number = 1) {
 
     return data
   } catch (error) {
-    console.warn('Erro ao buscar items:', error)
-    throw new Error(String(error))
+    if (axios.isAxiosError(error)) {
+      return error.message
+    } else {
+      throw error
+    }
   }
 }

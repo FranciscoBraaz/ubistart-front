@@ -1,3 +1,5 @@
+@use "../../styles/variables.scss";
+
 .home {
   display: flex;
   flex-direction: column;
@@ -12,5 +14,25 @@
     max-width: 400px;
     padding: 0 32px;
     margin-top: 32px;
+  }
+}
+
+.home__clear-form {
+  background-color: transparent;
+  color: variables.$main-default;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: variables.$screen-sm) {
+  .home {
+    padding: 16px;
+
+    & > form {
+      padding: 0 16px;
+    }
   }
 }

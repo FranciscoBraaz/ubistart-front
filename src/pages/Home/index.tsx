@@ -22,13 +22,20 @@ function Home() {
   } = useForm({
     mode: 'onBlur',
   })
-  const { refetchInitialPage, onLoadMore, data, loading, error, currentPage } = useGetItems()
-  const { submitCreateItem, onFillForm } = useSubmitForm({ reset, refetchInitialPage })
+  const { refetchInitialPage, onLoadMore, updateItem, data, loading, error, currentPage } =
+    useGetItems()
+  const { submitCreateItem, submitEditItem, onFillForm, selectedItem, onClearForm } = useSubmitForm(
+    {
+      reset,
+      refetchInitialPage,
+      updateItem,
+    }
+  )
 
   return (
     <main className='home'>
       <FormHeader title='Formulário' description='Cadastrar' />
-      <form onSubmit={handleSubmit(submitCreateItem)}>
+      <form onSubmit={handleSubmit(selectedItem ? submitEditItem : submitCreateItem)}>
         <FormInput
           formField={{
             type: 'email',
@@ -66,6 +73,9 @@ function Home() {
           register={register}
           errors={errors}
         />
+        <button className='home__clear-form' type='button' onClick={onClearForm}>
+          Limpar formulário
+        </button>
         <FormButton
           type='submit'
           styleType='contained'
@@ -76,10 +86,11 @@ function Home() {
       </form>
       <CreatedItems
         data={data}
-        loading={loading}
+        loading={loading && currentPage === 1}
+        loadingMore={loading && currentPage > 1}
         error={error}
         currentPage={currentPage}
-        onFillForm={item => onFillForm(item)}
+        onFillForm={(item, index) => onFillForm(item, index)}
         loadMore={onLoadMore}
       />
     </main>

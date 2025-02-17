@@ -1,7 +1,15 @@
+@use "../../styles/variables.scss";
+
 .form-header {
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
   padding: 0 32px;
+}
+
+@media screen and (max-width: variables.$screen-sm) {
+  .form-header {
+    padding: 0 16px;
+  }
 }

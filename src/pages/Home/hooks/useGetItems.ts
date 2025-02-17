@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
 import { getItems } from '../../../services/formItem.services'
 
 function useGetItems() {
@@ -11,6 +12,7 @@ function useGetItems() {
   const [error, setError] = useState('')
 
   const isInitialRender = useRef(true)
+  const isLoadMore = useRef(false)
 
   useEffect(() => {
     if (isInitialRender.current) {
@@ -33,6 +35,7 @@ function useGetItems() {
         } else {
           setError(String(error))
         }
+        toast.error('Erro ao listar itens')
       } finally {
         setLoading(false)
       }
@@ -41,15 +44,29 @@ function useGetItems() {
     fetchItems()
   }, [page])
 
+  useEffect(() => {
+    if (isLoadMore.current && document.body) {
+      window.scrollTo(0, document.body.scrollHeight)
+      isLoadMore.current = false
+    }
+  }, [data])
+
   function onLoadMore() {
     setPage(page + 1)
+    isLoadMore.current = true
   }
 
   function refetchInitialPage() {
     setPage(1)
   }
 
-  return { data, loading, error, currentPage: page, onLoadMore, refetchInitialPage }
+  function updateItem(newItem: any, itemIndex: number) {
+    const updatedItems = [...data.formItems]
+    updatedItems[itemIndex] = newItem
+    setData({ formItems: updatedItems, totalPages: data.totalPages })
+  }
+
+  return { data, loading, error, currentPage: page, onLoadMore, refetchInitialPage, updateItem }
 }
 
 export default useGetItems

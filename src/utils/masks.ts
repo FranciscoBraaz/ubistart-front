@@ -21,4 +21,4 @@ function setMask(value: string, mask: string) {
   }
 }
 
-export { setMask }
+export { setMask, cepMask }
