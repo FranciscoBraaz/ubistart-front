@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 import { getItems } from '../../../services/formItem.services'
 
 function useGetItems() {
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const [data, setData] = useState<{ formItems: any[]; totalPages: number }>({
     formItems: [],
     totalPages: 0,
@@ -23,8 +23,9 @@ function useGetItems() {
     async function fetchItems() {
       setLoading(true)
       try {
-        const responseData = await getItems(page)
-        if (page > 1) {
+        const currentPage = page || 1
+        const responseData = await getItems(currentPage)
+        if (currentPage > 1) {
           responseData.formItems = [...data.formItems, ...responseData.formItems]
         }
         setData(responseData)
@@ -57,7 +58,11 @@ function useGetItems() {
   }
 
   function refetchInitialPage() {
-    setPage(1)
+    if (page === 1) {
+      setPage(0)
+    } else {
+      setPage(1)
+    }
   }
 
   function updateItem(newItem: any, itemIndex: number) {

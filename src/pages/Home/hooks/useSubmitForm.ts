@@ -28,12 +28,10 @@ function useSubmitForm({ reset, refetchInitialPage, updateItem }: UseSubmitForm)
     try {
       await createItem(formValues)
       refetchInitialPage()
-      reset({
-        _id: '',
-        name: '',
-        email: '',
-        cep: '',
-      })
+      setTimeout(() => {
+        onClearForm()
+      }, 200)
+      toast.success('Item cadastrado')
     } catch (error) {
       console.error(error)
       if (error instanceof Error && error.message) {
@@ -55,19 +53,15 @@ function useSubmitForm({ reset, refetchInitialPage, updateItem }: UseSubmitForm)
         id: formValues._id,
       })
       const data = response.data.updatedItem as Item
-      setSelectedItem(null)
 
       if (updateItem && itemIndex !== null) {
         updateItem(data, itemIndex)
       }
 
       toast.success('Alterações salvas')
-      reset({
-        _id: '',
-        name: '',
-        email: '',
-        cep: '',
-      })
+      setTimeout(() => {
+        onClearForm()
+      }, 200)
     } catch (error: string | unknown) {
       console.error(error)
       if (error instanceof Error && error.message) {

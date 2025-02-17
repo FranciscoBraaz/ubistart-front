@@ -21,6 +21,11 @@ function Home() {
     formState: { errors, isValid, isSubmitting },
   } = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      name: '',
+      email: '',
+      cep: '',
+    },
   })
   const { refetchInitialPage, onLoadMore, updateItem, data, loading, error, currentPage } =
     useGetItems()
