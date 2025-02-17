@@ -91,7 +91,7 @@ function Home() {
       </form>
       <CreatedItems
         data={data}
-        loading={loading && currentPage === 1}
+        loading={loading && currentPage <= 1}
         loadingMore={loading && currentPage > 1}
         error={error}
         currentPage={currentPage}
